@@ -1,5 +1,8 @@
 package com.droid.app
 
+import android.content.res.Configuration
+import expo.modules.ApplicationLifecycleDispatcher
+import expo.modules.ReactNativeHostWrapper
 import android.app.Application
 import android.content.res.Configuration
 
@@ -19,7 +22,7 @@ class MainApplication : Application(), ReactApplication {
 
   override val reactNativeHost: ReactNativeHost = ReactNativeHostWrapper(
         this,
-        object : DefaultReactNativeHost(this) {
+        ReactNativeHostWrapper(this, object : DefaultReactNativeHost(this) {
           override fun getPackages(): List<ReactPackage> {
             // Packages that cannot be autolinked yet can be added manually here, for example:
             // packages.add(new MyReactNativePackage());
@@ -32,7 +35,7 @@ class MainApplication : Application(), ReactApplication {
 
           override val isNewArchEnabled: Boolean = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED
           override val isHermesEnabled: Boolean = BuildConfig.IS_HERMES_ENABLED
-      }
+      })
   )
 
   override val reactHost: ReactHost
